@@ -1,0 +1,46 @@
+[ckleeaj@login-0 NEMO]$ ls
+GLT_SRC  LIM_SRC_2  LIM_SRC_3  NST_SRC  OFF_SRC  OOO_SRC  OPA_SRC  SAS_SRC  TOP_SRC
+[ckleeaj@login-0 NEMO]$ cd OPA_SRC/
+[ckleeaj@login-0 OPA_SRC]$ ls
+ASM  DIA  ICB  OBS  TRA           lib_cray.f90.orig    module_example  par_kind.F90  stpctl.F90                   wrk_nemo.F90
+BDY  DOM  IOM  SBC  TRD           lib_fortran.F90      nemo.f90        par_oce.F90   timing.F90
+C1D  DYN  LBC  SOL  ZDF           lib_fortran_crs.F90  nemogcm.F90     step.F90      trc_oce.F90
+CRS  FLO  LDF  STO  lib_cray.f90  lib_print.f90        oce.F90         step_oce.F90  vectopt_loop_substitute.h90
+[ckleeaj@login-0 OPA_SRC]$ less lib_fortran.F90 
+
+      ENDIF
+   END FUNCTION SIGN_ARRAY_1D_B
+
+
+   FUNCTION SIGN_ARRAY_2D_B(pa,pb)
+      !!-----------------------------------------------------------------------
+      !!                  ***  FUNCTION SIGN_ARRAY_2D_B  ***
+      !!
+      !! ** Purpose : overwrite f95 behaviour of intrinsinc sign function
+      !!-----------------------------------------------------------------------
+      REAL(wp) :: pa(:,:),pb      ! input
+      REAL(wp) :: SIGN_ARRAY_2D_B(SIZE(pa,1),SIZE(pa,2))  ! result
+      !!-----------------------------------------------------------------------
+      IF( pb >= 0.e0 ) THEN   ;   SIGN_ARRAY_2D_B = ABS(pa)
+      ELSE                    ;   SIGN_ARRAY_2D_B =-ABS(pa)
+      ENDIF
+   END FUNCTION SIGN_ARRAY_2D_B
+
+
+   FUNCTION SIGN_ARRAY_3D_B(pa,pb)
+      !!-----------------------------------------------------------------------
+      !!                  ***  FUNCTION SIGN_ARRAY_3D_B  ***
+      !!
+      !! ** Purpose : overwrite f95 behaviour of intrinsinc sign function
+      !!-----------------------------------------------------------------------
+      REAL(wp) :: pa(:,:,:),pb      ! input
+      REAL(wp) :: SIGN_ARRAY_3D_B(SIZE(pa,1),SIZE(pa,2),SIZE(pa,3))  ! result
+      !!-----------------------------------------------------------------------
+      IF( pb >= 0.e0 ) THEN   ;   SIGN_ARRAY_3D_B = ABS(pa)
+      ELSE                    ;   SIGN_ARRAY_3D_B =-ABS(pa)
+      ENDIF
+   END FUNCTION SIGN_ARRAY_3D_B
+#endif
+
+   !!======================================================================
+END MODULE lib_fortran
